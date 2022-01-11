@@ -1,0 +1,36 @@
+1. MATCH (movie:Movie) return movie
+2. MATCH (movie:Movie)<-[:ACTED_IN]-(act:Person {name: "Hugo Weaving"}) return movie
+3. MATCH (d)-[:DIRECTED]->(movie:Movie)<-[:ACTED_IN]-(act:Person {name: "Hugo Weaving"}) return d
+4. MATCH (coactor:Person)-[:ACTED_IN]->(movie:Movie)<-[:ACTED_IN]-(act:Person {name: "Hugo Weaving"}) return coactor
+5. MATCH (movie:Movie)<-[:ACTED_IN]-(act:Person)-[:ACTED_IN]->(mov:Movie) where movie.title CONTAINS 'Matrix' return mov
+6. MATCH (act:Person)-[:ACTED_IN]->(mov:Movie) return act.name, count(*) as NumFilms
+7. MATCH (act:Person)-[:DIRECTED]->(mov:Movie), (act)-[:WROTE]->(mov) return act.name, mov.title
+8. MATCH (actHug:Person {name: "Hugo Weaving"})-[:ACTED_IN]->(mov:Movie)<-[:ACTED_IN]-(act:Person {name: "Keanu Reeves"}) return mov
+9. CREATE (CapAmerica:Movie {title: 'Captain America: The First Avenger', released:2011, tagline: 'Its me. Its Steve.'})
+CREATE (Joe:Person {name: 'Joe Johnston', born:1950})
+CREATE (Christopher:Person {name: 'Christopher Markus', born: 1970})
+CREATE (Stephen:Person {name: 'Stephen McFeely', born: 1970})
+CREATE (JoeS:Person {name: 'Joe Simon', born:1913})
+CREATE (Chris:Person {name: 'Chris Evans', born:1981})
+CREATE (Samuel:Person {name: "Samuel L. Jackson", born: 1948})
+CREATE (Hayley:Person {name: 'Hayley Atwell', born:1982})
+CREATE (Sebastian:Person {name: 'Sebastian Stan', born:1982})
+CREATE
+(Joe)-[:DIRECTED]->(CapAmerica),
+(Christopher)-[:WROTE]->(CapAmerica),
+(Stephen)-[:WROTE]->(CapAmerica),
+(JoeS)-[:WROTE]->(CapAmerica),
+(Chris)-[:ACTED_IN {roles:['Steve Rogers']}]->(CapAmerica),
+(Samuel)-[:ACTED_IN {roles: ['Nick Fury']}]->(CapAmerica),
+(Hayley)-[:ACTED_IN {roles: ['Peggy Carter']}]->(CapAmerica),
+(Sebastian)-[:ACTED_IN {roles: ['James Buchanan Barnes']}]->(CapAmerica)
+
+MATCH
+  (a:Person),
+  (b:Movie)
+WHERE b.title = 'Captain America: The First Avenger' AND a.name = 'Hugo Weaving'
+CREATE (a)-[r:ACTED_IN {roles: ['Johann Schmidt']}]->(b)
+RETURN type(r)
+
+MATCH (mov:Movie {title:"Captain America: The First Avenger"})-[*1..1]-(actor)
+RETURN DISTINCT mov,actor

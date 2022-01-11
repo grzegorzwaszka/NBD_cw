@@ -1,0 +1,13 @@
+1. curl -XPOST -H "Content-Type: application/json" -d '{"name": "Andrzej", "surname": "Nowak", age": 24, "eyecolor": "blue"}' -i http://localhost:8098/buckets/s16372/keys/kv1
+curl -XPOST -H "Content-Type: application/json" -d '{"name": "Ania", "surname": "Kowalska", age": 20, "eyecolor": "green"}' -i http://localhost:8098/buckets/s16372/keys/kv2
+curl -XPOST -H "Content-Type: application/json" -d '{"name": "Tomasz", "surname": "Tomaszewicz", age": 19, "eyecolor": "blue"}' -i http://localhost:8098/buckets/s16372/keys/kv3
+curl -XPOST -H "Content-Type: application/json" -d '{"name": "Kasia", "surname": "Kasialska", age": 18, "eyecolor": "brown"}' -i http://localhost:8098/buckets/s16372/keys/kv4
+2.curl -i http://localhost:8098/buckets/s16372/keys/kv1
+3.curl -XPUT -H "Content-Type: application/json" -d '{"name": "Ania", "surname": "Kowalska", age": 20, "eyecolor": "green", height: 168}' -i http://localhost:8098/buckets/s16372/keys/kv2
+4.curl -XPUT -H "Content-Type: application/json" -d '{"name": "Tomasz", "surname": "Tomaszewicz", age": 19}' -i http://localhost:8098/buckets/s16372/keys/kv3
+5.curl -XPUT -H "Content-Type: application/json" -d '{"name": "Andrzej", "surname": "Nowak", age": 24, "eyecolor": "brown"}' -i http://localhost:8098/buckets/s16372/keys/kv1
+6.curl -XDELETE -i http://localhost:8098/buckets/s16372/keys/kv4
+7.curl -i http://localhost:8098/buckets/s16372/keys/kv4
+8.curl -XPOST -H "Content-Type: application/json" -d '{"name": "Test"}' -i http://localhost:8098/buckets/s16372/keys
+9.curl -i http://localhost:8098/buckets/s16372/keys/6ojzhhe4DM7nNNrN4euTRVYwmh1
+10.curl -XDELETE -i http://localhost:8098/buckets/s16372/keys/6ojzhhe4DM7nNNrN4euTRVYwmh1

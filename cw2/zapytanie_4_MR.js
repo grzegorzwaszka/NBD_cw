@@ -1,0 +1,2 @@
+db.people.mapReduce( function() {emit(this.nationality, {avgBMI:(parseFloat(this.weight)/(parseFloat(this.height)*parseFloat(this.height))), minBMI:(parseFloat(this.weight)/(parseFloat(this.height)*parseFloat(this.height))), maxBMI: (parseFloat(this.weight)/(parseFloat(this.height)*parseFloat(this.height)))})}, function(nat, val) { return {avgBMI: Array.avg(val.map(x=>x.avgBMI)), minBMI: Math.min(...val.map(x=>x.minBMI)), maxBMI: Math.max(...val.map(x=>x.maxBMI))}}, {out: "peoplebmi"} )
+db.peoplebmi.find()

@@ -1,0 +1,54 @@
+1. MATCH (darj:town {name: 'Darjeeling'}), (san:peak {name: 'Sandakphu'})
+WITH darj, san
+MATCH path = ShortestPath((darj)-[*..5]->(san))
+return path
+2. MATCH (darj:town {name: 'Darjeeling'}), (san:peak {name: 'Sandakphu'})
+WITH darj, san
+MATCH path = ShortestPath((darj)-[*..5]->(san))
+WHERE all(r IN relationships(path) WHERE r.winter = "true")
+return path
+3.
+4. MATCH (airport:Airport)<-[:ORIGIN]-(flight:Flight)
+return airport, count(flight) as originFlightCount order by originFlightCount
+5. MATCH p = (airport:Airport { name:"LAX" })<-[r:ORIGIN|DESTINATION*..5]->(aird:Airport)
+WITH aird,p, REDUCE(i = 0, flight IN [nod IN NODES(p) WHERE 'Flight' IN LABELS(nod)] |
+  i + [(flight)<-[:ASSIGN]-(ticket) | ticket.price][0]
+  ) < 3000 as red
+  where red = true
+  return aird
+  6. MATCH p = (airport:Airport { name:"LAX" })<-[r:ORIGIN|DESTINATION*..7]->(aird:Airport { name:"DAY" })
+WITH aird,p, REDUCE(i = 0, flight IN [nod IN NODES(p) WHERE 'Flight' IN LABELS(nod)] |
+  i + [(flight)<-[:ASSIGN]-(ticket) | ticket.price][0]
+  ) as red
+  return p, red
+  order by red
+  7. MATCH p = (airport:Airport { name:"LAX" })<-[r:ORIGIN|DESTINATION*..7]->(aird:Airport { name:"DAY" })
+WITH aird,p, REDUCE(i = 0, flight IN [nod IN NODES(p) WHERE 'Flight' IN LABELS(nod)] |
+  i + [(flight)<-[:ASSIGN]-(ticket) | ticket.price][0]
+  ) as red
+  return p, red
+  order by red
+  limit 1
+  8. MATCH p = (airport:Airport { name:"LAX" })<-[r:ORIGIN|DESTINATION*..7]->(aird:Airport { name:"DAY" })
+WITH aird,p, REDUCE(i = 0, flight IN [nod IN NODES(p) WHERE 'Flight' IN LABELS(nod)] |
+  i + [(flight)<-[:ASSIGN]-(ticket) where ticket.class = 'business' | ticket.price][0]
+  ) as red
+  return p, red
+  order by red
+  limit 1
+  9. call {MATCH p = (airport:Airport )<-[r:ORIGIN|DESTINATION]-(f:Flight)-[:ORIGIN|DESTINATION]->(aird:Airport)
+return  f.airline as airline,  aird as air
+union
+MATCH p = (airport:Airport) <-[r:ORIGIN|DESTINATION]-(f:Flight)-[:ORIGIN|DESTINATION]->(aird:Airport)
+return  f.airline as airline,  airport as air
+}
+return airline, count(air) as countair
+order by countair
+10.MATCH p = (airport:Airport )<-[r:ORIGIN|DESTINATION*4..4]->(aird:Airport )
+where airport <> aird
+WITH aird,p, REDUCE(i = 0, flight IN [nod IN NODES(p) WHERE 'Flight' IN LABELS(nod)] |
+  i + [(flight)<-[:ASSIGN]-(ticket) | ticket.price][0]
+  ) as red
+return p, red
+order by red
+limit 1

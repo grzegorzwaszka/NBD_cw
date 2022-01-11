@@ -1,0 +1,12 @@
+HTTP/1.1 200 OK
+X-Riak-Vclock: a85hYGBgzGDKBVI8+xkWvp/RafwRyGbNYEpkzGNlyOfzu82XBQA=
+Vary: Accept-Encoding
+Server: MochiWeb/1.1 WebMachine/1.10.9 (cafe not found)
+Link: </buckets/s16372>; rel="up"
+Last-Modified: Sat, 08 Jan 2022 13:32:31 GMT
+ETag: "74ZF8x0oobygsXEIHJODJy"
+Date: Sat, 08 Jan 2022 13:41:19 GMT
+Content-Type: application/json
+Content-Length: 69
+
+{"name": "Andrzej", "surname": "Nowak", age": 24, "eyecolor": "blue"}

@@ -1,0 +1,3 @@
+{ "result" : "peopleavg", "ok" : 1 }
+{ "_id" : "Male", "value" : { "height" : 166.7363638199073, "weight" : 70.00861296184134 } }
+{ "_id" : "Female", "value" : { "height" : 166.8126091370557, "weight" : 70.11331573604069 } }
